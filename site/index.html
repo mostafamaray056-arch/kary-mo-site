@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KARY..MO™ | Legend Among Legends</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{
+    --gold:#f5c542; --gold2:#ffe9a3; --gold-dk:#a8741a;
+    --purple:#7b2ff7; --violet:#b06bff; --night:#0b0618; --night2:#170b33;
+    --blue:#3fa9ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{min-height:100%}
+  body{
+    font-family:Tahoma,Arial,sans-serif; color:#f3e9ff; overflow-x:hidden;
+    background:
+      radial-gradient(ellipse at 50% -10%, #3b1580 0%, transparent 55%),
+      radial-gradient(ellipse at 10% 90%, #2a0d5c 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 80%, #1c0a4a 0%, transparent 50%),
+      var(--night);
+  }
+  .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:28px 18px 60px}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;margin:0 auto;max-width:620px;border-radius:22px;padding:5px;
+    background:linear-gradient(135deg,var(--gold2),var(--gold-dk) 30%,var(--violet) 55%,var(--gold) 80%,var(--gold-dk));
+    background-size:300% 300%; animation:shift 8s ease infinite;
+    box-shadow:0 0 40px rgba(176,107,255,.55),0 0 90px rgba(123,47,247,.35),0 0 25px rgba(245,197,66,.35);
+  }
+  .hero img{display:block;width:100%;height:auto;border-radius:18px}
+  .hero::after{content:"";position:absolute;inset:5px;border-radius:18px;pointer-events:none;
+    background:linear-gradient(115deg,transparent 40%,rgba(255,240,190,.22) 50%,transparent 60%);
+    background-size:250% 100%;animation:shine 5s linear infinite}
+  .corner{position:absolute;width:46px;height:46px;border:3px solid var(--gold);z-index:2}
+  .corner.tl{top:-10px;left:-10px;border-right:none;border-bottom:none;border-radius:14px 0 0 0}
+  .corner.tr{top:-10px;right:-10px;border-left:none;border-bottom:none;border-radius:0 14px 0 0}
+  .corner.bl{bottom:-10px;left:-10px;border-right:none;border-top:none;border-radius:0 0 0 14px}
+  .corner.br{bottom:-10px;right:-10px;border-left:none;border-top:none;border-radius:0 0 14px 0}
+
+  /* ===== Heading ===== */
+  .divider{display:flex;align-items:center;gap:14px;justify-content:center;margin:44px 0 10px}
+  .divider span{height:2px;flex:1;max-width:180px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .divider span:last-child{background:linear-gradient(270deg,transparent,var(--gold))}
+  .divider svg{width:38px;height:38px;filter:drop-shadow(0 0 8px var(--gold))}
+  h1{text-align:center;  font-family:Tahoma,Arial,sans-serif;font-weight:900;font-size:clamp(24px,4.5vw,36px);
+    background:linear-gradient(180deg,#fff6d6,var(--gold) 55%,var(--gold-dk));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 2px 10px rgba(245,197,66,.35))}
+  .sub{text-align:center;color:#cbb4f5;margin-top:6px;font-size:15px}
+  .sub b{font-family:'Cinzel';letter-spacing:1px;color:var(--gold2)}
+
+  /* ===== Options ===== */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:30px}
+  .card{position:relative;cursor:pointer;border:none;text-align:right;color:inherit;font:inherit;
+    border-radius:18px;padding:2px;
+    background:linear-gradient(140deg,var(--gold),var(--gold-dk) 40%,var(--purple) 70%,var(--gold));
+    transition:transform .25s,box-shadow .25s;
+    box-shadow:0 8px 30px rgba(0,0,0,.5),0 0 18px rgba(123,47,247,.35)}
+  .card .in{display:flex;align-items:center;gap:16px;height:100%;border-radius:16px;padding:20px 20px;
+    background:
+      radial-gradient(circle at 15% 50%,rgba(176,107,255,.22),transparent 60%),
+      linear-gradient(160deg,#21104a,#120828 70%);
+    overflow:hidden;position:relative}
+  .card .in::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(115deg,transparent 35%,rgba(255,230,160,.18) 50%,transparent 65%);
+    transform:translateX(120%);transition:transform .7s}
+  .card:hover,.card:focus-visible{transform:translateY(-6px) scale(1.02);outline:none;
+    box-shadow:0 14px 40px rgba(0,0,0,.6),0 0 35px rgba(176,107,255,.7),0 0 18px rgba(245,197,66,.5)}
+  .card:hover .in::before{transform:translateX(-120%)}
+  .card:active{transform:scale(.98)}
+  .ico{flex:0 0 auto;width:68px;height:68px;border-radius:50%;display:grid;place-items:center;
+    background:radial-gradient(circle,#3a1a78,#160930);
+    border:2px solid var(--gold);
+    box-shadow:0 0 16px rgba(245,197,66,.45),inset 0 0 14px rgba(176,107,255,.5)}
+  .ico svg{width:38px;height:38px;filter:drop-shadow(0 0 6px rgba(245,197,66,.7))}
+  .txt h2{font-size:22px;font-weight:900;color:var(--gold2);text-shadow:0 0 12px rgba(245,197,66,.45)}
+  .txt p{font-size:13.5px;color:#c9b6ee;margin-top:2px;line-height:1.6}
+  .arrow{margin-inline-start:auto;color:var(--gold);font-size:22px;opacity:.75;transition:transform .25s}
+  .card:hover .arrow{transform:translateX(-6px);opacity:1}
+
+  /* ===== Telegram CTA ===== */
+  .lead-panel{display:none;margin-top:28px;padding:18px;border-radius:22px;background:linear-gradient(160deg,#1e113a,#10091f 62%,#1d1137);border:2px solid rgba(245,197,66,.52);box-shadow:0 0 28px rgba(176,107,255,.3),0 0 20px rgba(245,197,66,.14)}
+  .lead-panel.show{display:block}
+  .lead-title{margin-bottom:14px;font-size:26px;font-weight:900;color:var(--gold2);text-align:center}
+  .lead-card{padding:18px;border-radius:18px;background:rgba(12,8,24,.6);border:1px solid rgba(245,197,66,.2)}
+  .lead-ask{font-size:18px;line-height:1.8;color:#f8ecff;margin-bottom:16px;font-weight:700}
+  .lead-progress{margin-bottom:16px;color:#cbb4f5;font-size:13px}
+  .lead-progress-track{height:7px;margin-top:8px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.1)}
+  .lead-progress-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--violet),var(--gold));transition:width .25s ease}
+  .option-list{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:12px}
+  .option-btn, .next-btn, .back-btn{border:none;border-radius:14px;padding:14px 16px;font:inherit;font-weight:700;cursor:pointer;transition:.2s ease}
+  .option-btn{background:linear-gradient(135deg,#ffdf86,#d9972d);color:#25140d;box-shadow:0 0 18px rgba(245,197,66,.18)}
+  .option-btn:hover, .next-btn:hover, .back-btn:hover{transform:translateY(-2px)}
+  .option-btn.selected{background:linear-gradient(135deg,#b06bff,#6f41d5);color:#fff;box-shadow:0 0 20px rgba(176,107,255,.4)}
+  .field-wrap{display:grid;gap:12px}
+  .input, .textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(245,197,66,.28);background:rgba(31,19,50,.9);color:#f8ecff;font:inherit;resize:vertical}
+  .input::placeholder, .textarea::placeholder{color:#d0b9ee}
+  .check-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .check-option{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid rgba(245,197,66,.25);border-radius:12px;background:rgba(31,19,50,.75)}
+  .check-option input{width:18px;height:18px;accent-color:var(--gold)}
+  .hero-entry{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px;margin-bottom:12px;border:1px solid rgba(245,197,66,.24);border-radius:14px;background:rgba(31,19,50,.6)}
+  .hero-entry .hero-name{grid-column:1/-1}
+  .hero-actions{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .small-btn{padding:10px 14px;border:1px solid rgba(245,197,66,.35);border-radius:11px;background:rgba(255,255,255,.05);color:#f3e9ff;font:inherit;cursor:pointer}
+  .moon-row{display:inline-flex;gap:3px;direction:ltr}
+  .moon{font-size:20px;color:#777}
+  .moon.normal{color:#f5c542}
+  .moon.red{color:#ff4848}
+  .equipment-list{display:grid;gap:10px}
+  .equipment-row{display:flex;gap:8px;align-items:center}
+  .equipment-row .input{flex:1}
+  .action-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px}
+  .back-btn{background:rgba(255,255,255,.04);color:#f3e9ff;border:1px solid rgba(255,255,255,.08)}
+  .next-btn{background:linear-gradient(135deg,#3fa9ff,#2a7ae4);color:#fff;box-shadow:0 0 18px rgba(63,169,255,.35)}
+  .summary{font-size:16px;line-height:2;color:#f3e9ff}
+  .summary strong{color:var(--gold2)}
+  .summary-item{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08);overflow-wrap:anywhere}
+  .bot-plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+  .bot-plan{padding:16px;border:1px solid rgba(245,197,66,.3);border-radius:14px;background:rgba(31,19,50,.75);color:#f3e9ff;text-align:center}
+  .bot-plan strong,.bot-plan span{display:block}
+  .bot-plan strong{color:var(--gold2);font-size:18px}
+  .bot-plan span{margin-top:5px}
+  .bot-plan .bot-bonus{color:#b6f3c2;font-weight:700}
+  .bot-contact{display:inline-flex;justify-content:center;align-items:center;margin-top:12px;padding:9px 14px;border:1px solid rgba(37,211,102,.6);border-radius:11px;background:rgba(37,211,102,.14);color:#b6f3c2;text-decoration:none;font-weight:700}
+  .bot-contact:hover,.bot-contact:focus-visible{background:rgba(37,211,102,.25);outline:none}
+  .bot-contact-main{display:flex;width:fit-content;margin:18px auto 0;padding:13px 22px}
+  .lead-note{margin-top:14px;color:#cbb4f5;font-size:13px;line-height:1.8}
+  .cta{display:flex;justify-content:center;margin-top:38px}
+  .tg{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:#fff;font-weight:700;font-size:17px;
+    padding:14px 30px;border-radius:50px;border:2px solid var(--gold);
+    background:linear-gradient(135deg,#1d6fd8,#2aa3ff);
+    box-shadow:0 0 22px rgba(63,169,255,.6),0 0 12px rgba(245,197,66,.4);transition:transform .2s,box-shadow .2s}
+  .tg:hover{transform:translateY(-3px);box-shadow:0 0 34px rgba(63,169,255,.9),0 0 18px rgba(245,197,66,.6)}
+  .tg svg{width:26px;height:26px}
+  footer{text-align:center;margin-top:40px;font-family:Georgia,serif;color:#9b86c9;font-size:13px;letter-spacing:2px}
+  footer b{color:var(--gold)}
+
+  .reveal{opacity:1;transform:none}
+
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr;gap:14px}
+    .card .in{padding:16px}
+    .ico{width:58px;height:58px}.ico svg{width:32px;height:32px}
+    .txt h2{font-size:20px}
+  }
+
+  /* ===== Kingdom fantasy theme ===== */
+  :root{
+    --gold:#e7bd63; --gold2:#ffedbd; --gold-dk:#87612c;
+    --purple:#49356b; --violet:#8d77b6; --night:#090f18; --night2:#111d2a;
+    --blue:#79b9d1;
+  }
+  body{
+    color:#f2eee4;
+    background:
+      radial-gradient(ellipse at 50% 0%,rgba(91,53,125,.42),transparent 48%),
+      radial-gradient(ellipse at 0% 40%,rgba(35,81,91,.28),transparent 42%),
+      radial-gradient(ellipse at 100% 78%,rgba(113,73,36,.2),transparent 38%),
+      linear-gradient(180deg,#111525,#0b111b 55%,#111923);
+  }
+  .wrap{max-width:1060px;padding-top:34px}
+  .hero{
+    max-width:650px;padding:4px;border-radius:16px;overflow:hidden;
+    background:linear-gradient(135deg,#fff0c2,#9b7438 24%,#394555 48%,#b28b4d 76%,#f2d994);
+    box-shadow:0 8px 20px rgba(0,0,0,.4);animation:none;
+  }
+  .hero img{border-radius:12px}
+  .hero::after{display:none}
+  .hero-copy{
+    position:absolute;inset:auto 4px 4px;padding:48px 24px 20px;
+    border-radius:0 0 12px 12px;text-align:right;
+    background:linear-gradient(0deg,rgba(7,11,20,.96),rgba(7,11,20,.76) 62%,transparent);
+    color:#fff5da;
+  }
+  .hero-kicker{
+    display:inline-block;margin-bottom:5px;padding:3px 10px;border:1px solid rgba(231,189,99,.48);
+    border-radius:999px;background:rgba(22,25,40,.72);color:#e8c879;font-size:12px;font-weight:700;
+  }
+  .hero-copy h2{font-size:clamp(20px,4vw,30px);line-height:1.35;color:#ffedbd;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+  .hero-copy p{margin-top:4px;color:#e0d9ce;font-size:clamp(12px,2.2vw,15px);line-height:1.7}
+  .corner{width:34px;height:34px;border-width:2px}
+  .corner.tl{top:-7px;left:-7px}
+  .corner.tr{top:-7px;right:-7px}
+  .corner.bl{bottom:-7px;left:-7px}
+  .corner.br{bottom:-7px;right:-7px}
+  .divider{margin:34px 0 8px}
+  .divider span{height:1px;max-width:220px}
+  .divider svg{width:34px;height:34px}
+  h1{
+    letter-spacing:.2px;
+    background:linear-gradient(180deg,#fff4d2 8%,#eac879 55%,#a77c3e);
+    -webkit-background-clip:text;background-clip:text;
+    filter:drop-shadow(0 2px 12px rgba(231,189,99,.2));
+  }
+  .sub{color:#c7c5c6}
+  .sub b{color:#e8c879}
+  .grid{gap:16px;margin-top:26px}
+  .card{
+    border-radius:12px;padding:1px;
+    background:linear-gradient(135deg,#d6b66e,#6e593a 32%,#34414a 58%,#b18c50);
+    box-shadow:0 8px 22px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.14);
+    transition:transform .22s ease,box-shadow .22s ease;
+  }
+  .card .in{
+    min-height:116px;border-radius:11px;padding:18px 20px;
+    background:
+      linear-gradient(115deg,rgba(255,255,255,.035),transparent 40%),
+      repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 4px),
+      linear-gradient(145deg,#202a33,#111a23 72%,#151c25);
+  }
+  .card .in::after{
+    content:"";position:absolute;inset:7px;border:1px solid rgba(231,189,99,.12);
+    border-radius:7px;pointer-events:none;
+  }
+  .card:hover,.card:focus-visible{
+    transform:translateY(-3px);
+    box-shadow:0 12px 26px rgba(0,0,0,.46),0 0 18px rgba(231,189,99,.18);
+  }
+  .card:hover .in::before{transform:translateX(-120%)}
+  .ico{
+    width:60px;height:60px;border-radius:12px;
+    background:linear-gradient(145deg,#34414a,#151d26);
+    border:1px solid #b28b4d;
+    box-shadow:inset 0 1px rgba(255,255,255,.17),0 4px 10px rgba(0,0,0,.34);
+  }
+  .ico svg{width:34px;height:34px;filter:drop-shadow(0 1px 3px rgba(231,189,99,.35))}
+  .txt h2{color:#f0d99e;text-shadow:0 1px 7px rgba(231,189,99,.16)}
+  .txt p{color:#b8c0c6}
+  .arrow{color:#d5b568}
+  .lead-panel{
+    position:relative;margin-top:24px;padding:18px;border-radius:14px;overflow:hidden;
+    background:
+      repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 5px),
+      linear-gradient(145deg,#202a33,#101820 72%,#17212b);
+    border:1px solid rgba(214,182,110,.66);
+    box-shadow:0 12px 30px rgba(0,0,0,.4),inset 0 1px rgba(255,255,255,.07);
+  }
+  .lead-panel::before{content:"";position:absolute;inset:6px;border:1px solid rgba(231,189,99,.12);border-radius:9px;pointer-events:none}
+  .lead-title{position:relative;margin-bottom:12px;color:#f0d99e;font-size:24px}
+  .lead-card{
+    position:relative;padding:18px;border-radius:10px;
+    background:rgba(7,12,18,.57);border:1px solid rgba(214,182,110,.2);
+  }
+  .lead-ask{color:#f4efe4}
+  .lead-progress{color:#c9c4b8}
+  .lead-progress-track{background:rgba(255,255,255,.1)}
+  .lead-progress-fill{background:linear-gradient(90deg,#7f91a0,#dfbd70)}
+  .input,.textarea{
+    border-color:rgba(214,182,110,.3);border-radius:9px;
+    background:rgba(13,20,28,.92);color:#f2eee4;
+  }
+  .input:focus,.textarea:focus{outline:2px solid rgba(231,189,99,.48);outline-offset:1px}
+  .input::placeholder,.textarea::placeholder{color:#aab1b5}
+  .check-option,.hero-entry,.bot-plan{
+    border-color:rgba(214,182,110,.22);border-radius:10px;
+    background:linear-gradient(145deg,rgba(37,47,55,.82),rgba(17,25,33,.88));
+  }
+  .check-option{color:#e6e1d7}
+  .small-btn{
+    border-color:rgba(214,182,110,.38);border-radius:8px;
+    background:linear-gradient(145deg,#303a41,#1a232b);color:#eee6d4;
+  }
+  .option-btn{background:linear-gradient(145deg,#ead59d,#b38a4a);color:#231d13}
+  .option-btn.selected{background:linear-gradient(145deg,#76658f,#49405f);color:#fff}
+  .next-btn{
+    background:linear-gradient(145deg,#dfc27c,#987340);color:#211a10;
+    box-shadow:inset 0 1px rgba(255,255,255,.3),0 4px 10px rgba(0,0,0,.25);
+  }
+  .back-btn{background:linear-gradient(145deg,#303a41,#1a232b);color:#e8e2d5;border:1px solid rgba(255,255,255,.1)}
+  .summary{color:#e9e4d8}
+  .summary strong{color:#e8cd88}
+  .summary-item{border-color:rgba(255,255,255,.07)}
+  .bot-plan strong{color:#f0d99e}
+  .bot-plan .bot-bonus{color:#b8d5b8}
+  .bot-contact{
+    border-color:rgba(75,170,113,.52);background:rgba(45,111,72,.19);color:#c4e7ca;
+  }
+  .bot-contact:hover,.bot-contact:focus-visible{background:rgba(45,111,72,.32)}
+  .lead-note{color:#b8c0c6}
+  .tg{
+    border:1px solid #ddbd72;border-radius:10px;
+    background:linear-gradient(145deg,#354d5a,#233542);
+    box-shadow:inset 0 1px rgba(255,255,255,.15),0 6px 16px rgba(0,0,0,.3);
+  }
+  .tg:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(0,0,0,.38),0 0 14px rgba(231,189,99,.15)}
+  footer{color:#9ba3a8}
+  footer b{color:#d7b76c}
+  @media(max-width:640px){
+    .wrap{padding:22px 14px 42px}
+    .hero-copy{padding:38px 15px 13px}
+    .hero-kicker{font-size:10px;padding:2px 8px}
+    .hero-copy p{max-width:95%}
+    .grid{gap:12px}
+    .card .in{min-height:96px;padding:14px}
+    .ico{width:52px;height:52px}
+    .ico svg{width:30px;height:30px}
+    .lead-panel{padding:13px}
+    .lead-card{padding:14px}
+    .lead-title{font-size:21px}
+    .lead-ask{font-size:16px}
+    .action-row{align-items:stretch}
+    .action-row>*{flex:1}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- الصورة الرئيسية -->
+  <div class="hero reveal">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <img src="hero.jpg" alt="KARY..MO Kingdom" fetchpriority="high" decoding="async">
+    <div class="hero-copy">
+      <span class="hero-kicker">متجر المملكة للأبطال</span>
+      <h2>KARY..MO™</h2>
+      <p>بوابتك لعالم القلاع والأبطال والموارد — كل المملكة في مكان واحد.</p>
+    </div>
+  </div>
+
+  <div class="divider reveal" style="animation-delay:.2s">
+    <span></span>
+    <svg viewBox="0 0 64 64" fill="none"><path d="M8 46 L12 18 L24 32 L32 12 L40 32 L52 18 L56 46 Z" fill="#f5c542" stroke="#a8741a" stroke-width="2"/><rect x="8" y="46" width="48" height="7" rx="2" fill="#f5c542" stroke="#a8741a" stroke-width="2"/><circle cx="32" cy="34" r="4" fill="#b06bff"/></svg>
+    <span></span>
+  </div>
+  <h1 class="reveal" style="animation-delay:.3s">اختار طريقك في المملكة</h1>
+  <p class="sub reveal" style="animation-delay:.4s">أهلاً بيك في مملكة <b>KARY..MO™</b> — إنت محتاج إيه؟</p>
+
+  <!-- الاختيارات الأربعة -->
+  <div class="grid">
+    <button class="card reveal" style="animation-delay:.5s" data-start="castles">
+      <div class="in">
+        <div class="ico"><svg viewBox="0 0 64 64" fill="#f5c542" stroke="#a8741a" stroke-width="2" stroke-linejoin="round"><path d="M8 56 V24 h6 v5 h5 v-5 h6 v32z"/><path d="M39 56 V24 h6 v5 h5 v-5 h6 v32z"/><path d="M22 56 V16 h5 v5 h4 v-5 h2 v5 h4 v-5 h5 v40z"/><path d="M27 56 v-10 a5 5 0 0 1 10 0 v10z" fill="#2a1157"/><path d="M32 16 V6 l8 3 -8 3" fill="#b06bff" stroke="#b06bff"/></svg></div>
+        <div class="txt"><h2>بيع وشراء قلاع</h2><p>اشتري أو بيع قلعتك بأمان</p></div>
+        <span class="arrow">←</span>
+      </div>
+    </button>
+
+    <button class="card reveal" style="animation-delay:.6s" data-start="bots">
+      <div class="in">
+        <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke="#f5c542" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="32" y1="6" x2="32" y2="14"/><circle cx="32" cy="6" r="2.5" fill="#f5c542"/><rect x="12" y="14" width="40" height="32" rx="9"/><circle cx="24" cy="29" r="4" fill="#3fa9ff" stroke="#3fa9ff"/><circle cx="40" cy="29" r="4" fill="#3fa9ff" stroke="#3fa9ff"/><path d="M25 38 h14"/><path d="M6 26v10M58 26v10"/><path d="M22 46v8M42 46v8"/></svg></div>
+        <div class="txt"><h2>بوتات</h2><p>بوتات جاهزة ومخصوصة ليك</p></div>
+        <span class="arrow">←</span>
+      </div>
+    </button>
+
+    <button class="card reveal" style="animation-delay:.7s" data-start="resources">
+      <div class="in">
+        <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke="#f5c542" stroke-width="3"><ellipse cx="24" cy="44" rx="14" ry="5" fill="#a8741a"/><ellipse cx="24" cy="38" rx="14" ry="5" fill="#d9a12f"/><ellipse cx="24" cy="32" rx="14" ry="5" fill="#f5c542"/><ellipse cx="42" cy="48" rx="14" ry="5" fill="#a8741a"/><ellipse cx="42" cy="42" rx="14" ry="5" fill="#d9a12f"/><ellipse cx="42" cy="36" rx="14" ry="5" fill="#d9a12f"/><ellipse cx="42" cy="30" rx="14" ry="5" fill="#f5c542"/><path d="M42 12 l5 6 -5 6 -5 -6z" fill="#b06bff" stroke="#e3c8ff" stroke-width="1.5"/></svg></div>
+        <div class="txt"><h2>موارد</h2><p>ذهب، جواهر وكل موارد اللعبة</p></div>
+        <span class="arrow">←</span>
+      </div>
+    </button>
+
+    <button class="card reveal" style="animation-delay:.8s" data-start="events">
+      <div class="in">
+        <div class="ico"><svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10 L46 44" stroke="#f5c542" stroke-width="5"/><path d="M52 10 L18 44" stroke="#f5c542" stroke-width="5"/><path d="M40 46 l8 -8 M16 38 l8 8" stroke="#a8741a" stroke-width="5"/><path d="M46 44 l8 8 M18 44 l-8 8" stroke="#b06bff" stroke-width="5"/><circle cx="32" cy="27" r="3" fill="#3fa9ff"/></svg></div>
+        <div class="txt"><h2>أحداث</h2><p>الإيفنتات والتحديات الجديدة</p></div>
+        <span class="arrow">←</span>
+      </div>
+    </button>
+  </div>
+
+  <div id="leadPanel" class="lead-panel">
+    <div class="lead-title">بيع وشراء القلاع</div>
+    <div id="leadCard" class="lead-card"></div>
+  </div>
+
+  <div class="cta reveal" style="animation-delay:.9s">
+    <a class="tg" id="tgMain" href="#">
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 4.3 18.6 19.8c-.2 1.1-.9 1.4-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.2-8.3c.4-.4-.1-.6-.6-.2L6 13.4 1.1 11.9c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4 1.3z"/></svg>
+      ادخل المملكة على تليجرام
+    </a>
+  </div>
+
+  <footer>© <b>KARY..MO™</b> — LEGEND AMONG LEGENDS</footer>
+</div>
+
+<script>
+  /* ====== اكتب يوزر البوت بتاعك هنا (من غير @) ====== */
+  const BOT_USERNAME = "YourBotUsername";
+  const WHATSAPP_PHONE = "201018351663";
+
+  const heroRosters = {
+    infantry: ['القعقاع', 'أرسلان', 'محمد الثاني', 'عمر المختار', 'قلادون', 'بوشكين', 'بيرس', 'ديوجينجورو', 'بلقيس', 'شجاع', 'بن مرشد', 'أرطفل', 'ماوية', 'زينب', 'الكاهنة'],
+    chariots: ['زنوبيا', 'برقوق', 'قطز', 'صلاح الدين', 'المنصور', 'سليمان', 'عنترة', 'عثمان', 'زبيدة بنت جعفر', 'مالك بن الريب', 'فاطمة الفهرية', 'الخنساء', 'قادر', 'بن تاشفين', 'همام', 'صابرين', 'كافور الإخشيدي', 'نفرتيتي', 'سيلين'],
+    cavalry: ['الطارق', 'بايزيد الأول', 'المظفر', 'صباح', 'عبدالرحمن', 'هارون الرشيد', 'جحساس', 'سن علي', 'بارون', 'السلطانة مريم', 'الإسكندر الأكبر', 'بوراك', 'جوهر الصقلي', 'سعود', 'السلطان سليم', 'حاتم الطائي'],
+    archers: ['حليمة خاتون', 'مراد الرئيس', 'أضحى', 'السلطانة هيام', 'عمرو بن كلثوم', 'سيد الكنوز', 'أمير القيس', 'أبو ليلى المهلهل', 'المارد', 'خير الدين بربروس', 'كوسم', 'زرقاء اليمامة', 'أتيلا الهوني', 'أورخان غازي', 'شجرة الدر', 'العجوز القاتل', 'قايتباي']
+  };
+  const categories = [
+    { key: 'infantry', title: 'المشاة', icon: '⚔️' },
+    { key: 'chariots', title: 'العجلات', icon: '🛞' },
+    { key: 'cavalry', title: 'الفرسان', icon: '🐎' },
+    { key: 'archers', title: 'الرماة', icon: '🏹' }
+  ];
+  const heroes = [
+    { name: 'صلاح', normalKey: 'salahHilal', redKey: 'salahRedHilalCount' },
+    { name: 'عمر', normalKey: 'omarHilal', redKey: 'omarRedHilalCount' },
+    { name: 'قطز', normalKey: 'qutuzHilal', redKey: 'qutuzRedHilalCount' },
+    { name: 'فاتح', normalKey: 'fatehHilal', redKey: 'fatehRedHilalCount' },
+    { name: 'مالك', normalKey: 'malikHilal', redKey: 'malikRedHilalCount' }
+  ];
+  const questions = [
+    { key: 'whatsapp', text: 'العرض 🦆', type: 'tel', placeholder: 'رقم واتساب بكود الدولة، مثال: +201012345678' },
+    { key: 'links', text: 'اختار الروابط 🔗', type: 'multiselect', options: ['IGG', 'Google', 'Facebook', 'iPhone', 'Game Center', 'Device Binding'] },
+    { key: 'castle', text: 'مستوى القلعة 🏰', type: 'select', options: Array.from({ length: 35 }, (_, i) => String(i + 1)) },
+    { key: 'science', text: 'العلوم 🔬', type: 'number', placeholder: 'من 1 إلى 225، الكسور مسموحة', min: 1, max: 225, decimals: true },
+    { key: 'reserve', text: 'الاحتياط 🥋', type: 'number', placeholder: '0 أو من 1 إلى 79 مليون، ومن 80 إلى 1000 ألف', min: 0, max: 1000, unit: 'reserve' },
+    { key: 'seals', text: 'الأختام 🏆', type: 'number', placeholder: 'من 0 إلى 1000 ختم', min: 0, max: 1000, unit: ' ختم' },
+    ...heroes.map((hero) => ({ key: hero.normalKey, text: `عدد الهلال العادي عند ${hero.name} كام؟`, type: 'number', placeholder: 'من 0 إلى 5', min: 0, max: 5 })),
+    { key: 'redHilal', text: 'هل يوجد هلال أحمر؟', type: 'select', options: ['نعم', 'لا'], showIf: { key: 'castle', min: 31, max: 35 } },
+    ...heroes.map((hero) => ({ key: hero.redKey, text: `عدد الهلال الأحمر عند ${hero.name} كام؟`, type: 'number', placeholder: 'من 0 إلى عدد الهلال العادي', min: 0, max: 5, redFor: hero, showIfAll: [{ key: 'castle', min: 31, max: 35 }, { key: 'redHilal', value: 'نعم' }] })),
+    ...categories.map((category) => ({ key: `heroes_${category.key}`, text: `${category.title} ${category.icon}`, type: 'heroes', category })),
+    { key: 'bag', text: 'جودة الحقيبة 💕', type: 'select', options: ['كويسة', 'متوسطة', 'وحشة'] },
+    { key: 'resources', text: 'جودة الموارد', type: 'select', options: ['كويسة', 'متوسطة', 'وحشة'] },
+    { key: 'gold', text: 'الذهب 🪙', type: 'number', placeholder: 'من 1 إلى 100,000,000، الكسور مسموحة', min: 1, max: 100000000, decimals: true },
+    { key: 'bombs', text: 'القنابل 🎱', type: 'number', placeholder: 'من 0 إلى 10,000', min: 0, max: 10000 },
+    { key: 'farming', text: 'الزرع 🌱', type: 'number', placeholder: 'من 0 إلى 10,000', min: 0, max: 10000 },
+    { key: 'ignition', text: 'الإشعال 🔥', type: 'number', placeholder: 'من 500,000 إلى 100,000,000، الكسور مسموحة', min: 500000, max: 100000000, decimals: true },
+    { key: 'medals', text: 'عدد الأوسمة النادرة 🎊', type: 'number', placeholder: 'من 1 إلى 50 وسام', min: 1, max: 50, unit: ' وسام' },
+    { key: 'power', text: 'الباور ⚡', type: 'number', placeholder: 'من 10 إلى 5,000,000,000، الكسور مسموحة', min: 10, max: 5000000000, decimals: true, abbreviated: true },
+    { key: 'reset', text: 'التصفير', type: 'number', placeholder: 'اكتب رقمًا أقل من الباور', min: 0, decimals: true, abbreviated: true },
+    { key: 'equipment', text: 'العتاد (حتى 8 قطع)', type: 'equipment', options: ['رمادي', 'أخضر', 'أزرق', 'بنفسجي', 'ذهبي', 'أحمر'] },
+    { key: 'price', text: 'السعر 👻', type: 'number', placeholder: 'من 10 إلى 20,000 دولار', min: 10, max: 20000, unit: ' دولار' }
+  ];
+
+  const leadPanel = document.getElementById('leadPanel');
+  const leadCard = document.getElementById('leadCard');
+  let currentStep = 0;
+  let answers = {};
+  const botPlans = [
+    { id: 'month', title: 'شهر واحد', duration: 'شهر', priceEgp: 320, priceUsd: 6 },
+    { id: 'two-months', title: 'شهرين', duration: 'شهرين', priceEgp: 480, priceUsd: 9, detail: 'بسعر شهر ونصف' },
+    { id: 'three-months', title: '3 شهور + شهر هدية', duration: '4 شهور', priceEgp: 960, priceUsd: 18, detail: 'ادفع 3 شهور وخد شهر هدية' },
+    { id: 'six-months', title: '6 شهور + شهرين هدية', duration: '8 شهور', priceEgp: 1920, priceUsd: 36, detail: 'ادفع 6 شهور وخد شهرين هدية' }
+  ];
+
+  function matchesCondition(condition) {
+    const value = answers[condition.key];
+    if (condition.value !== undefined && value !== condition.value) return false;
+    if ((condition.min !== undefined || condition.max !== undefined) && !Number.isFinite(Number(value))) return false;
+    if (condition.min !== undefined && Number(value) < condition.min) return false;
+    if (condition.max !== undefined && Number(value) > condition.max) return false;
+    return true;
+  }
+
+  function getQuestions() {
+    return questions.filter((question) => {
+      if (question.showIf && !matchesCondition(question.showIf)) return false;
+      if (question.showIfAll && !question.showIfAll.every(matchesCondition)) return false;
+      return true;
+    });
+  }
+
+  function hasRedHilal() {
+    const castleLevel = Number(answers.castle);
+    return castleLevel >= 31 && castleLevel <= 35 && answers.redHilal === 'نعم';
+  }
+
+  function numberValue(key) {
+    return Number(answers[key]);
+  }
+
+  function formatAbbreviated(value) {
+    const number = Number(value);
+    if (number >= 1e9) return `${Number((number / 1e9).toFixed(2))}B`;
+    if (number >= 1e6) return `${Number((number / 1e6).toFixed(2))}M`;
+    return number.toLocaleString('en-US');
+  }
+
+  function formatAnswer(question) {
+    const value = answers[question.key];
+    if (question.key === 'reserve') {
+      const amount = Number(value);
+      return amount === 0 ? '0' : `${amount} ${amount <= 79 ? 'مليون' : 'ألف'}`;
+    }
+    if (question.abbreviated) return formatAbbreviated(value);
+    if (question.unit) return `${Number(value).toLocaleString('en-US')}${question.unit}`;
+    if (question.type === 'number') {
+      return Number(value).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    }
+    return String(value ?? '');
+  }
+
+  function renderMoonRow(normalCount, redCount) {
+    return `<span class="moon-row" aria-label="${normalCount} هلال عادي و${redCount} هلال أحمر">${Array.from({ length: 5 }, (_, i) => {
+      const color = i >= 5 - redCount ? 'red' : i >= 5 - normalCount ? '' : 'normal';
+      return `<span class="moon ${color}">☾</span>`;
+    }).join('')}</span>`;
+  }
+
+  function buildTelegramLeadMessage() {
+    const lines = ['🦆 طلب جديد — بيع وشراء القلاع'];
+    let fixedHeroesAdded = false;
+    getQuestions().forEach((question) => {
+      if (question.type === 'heroes') {
+        const entries = (answers[question.key]?.entries || []).filter((entry) => entry.tier === '5' && (Number(entry.normal) >= 3 || Number(entry.red) > 0));
+        if (entries.length) {
+          lines.push(`${question.category.title}: ${entries.map((entry) => `${entry.name || 'بطل'} (${entry.normal} عادي${Number(entry.red || 0) ? ` + ${entry.red} أحمر` : ''})`).join('، ')}`);
+        } else {
+          lines.push(`${question.category.title}: لا يوجد`);
+        }
+        return;
+      }
+      if (question.key === 'redHilal' || question.key.endsWith('RedHilalCount')) return;
+
+      const fixedHero = heroes.find((hero) => hero.normalKey === question.key);
+      if (fixedHero) {
+        if (!fixedHeroesAdded) {
+          heroes.forEach((hero) => {
+            const normalCount = Number(answers[hero.normalKey]);
+            const redCount = hasRedHilal() ? Number(answers[hero.redKey] || 0) : 0;
+            lines.push(`${hero.name}: ${normalCount} هلال عادي${redCount ? ` + ${redCount} هلال أحمر` : ''}`);
+          });
+          fixedHeroesAdded = true;
+        }
+        return;
+      }
+
+      const value = question.type === 'multiselect' || question.type === 'equipment'
+        ? (answers[question.key] || []).join('، ')
+        : question.key === 'reset'
+          ? formatAbbreviated(answers[question.key])
+          : formatAnswer(question);
+      lines.push(`${question.text}: ${value}`);
+    });
+    lines.push(`رقم العرض: ${answers.offerNumber || 'لم يتم تحديد'}`);
+    return lines.join('\n');
+  }
+
+  async function sendLeadToTelegram(button, status) {
+    button.disabled = true;
+    button.textContent = 'جاري الإرسال...';
+    status.textContent = 'بنرسل تفاصيل الإعلان بأمان إلى تيليجرام...';
+    try {
+      const response = await fetch('/api/telegram/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: buildTelegramLeadMessage() })
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.error || 'تعذر إرسال الطلب.');
+      button.textContent = 'تم إرسال الإعلان ✓';
+      status.textContent = 'وصلت تفاصيل الإعلان بنجاح.';
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = 'إرسال التفاصيل إلى تيليجرام';
+      status.textContent = error.message || 'تعذر الاتصال بالسيرفر. حاول مرة أخرى.';
+    }
+  }
+
+  function renderHeroQuestion(q) {
+    const state = answers[q.key] || { none: false, entries: [] };
+    const suggestions = `<datalist id="hero-list-${q.category.key}">${heroRosters[q.category.key].map((name) => `<option value="${escapeHTML(name)}"></option>`).join('')}</datalist>`;
+    const entries = state.entries.map((entry, index) => `
+      <div class="hero-entry" data-hero-index="${index}">
+        <input class="input hero-name" data-hero-field="name" list="hero-list-${q.category.key}" value="${escapeHTML(entry.name || '')}" placeholder="اسم البطل (اختياري من القائمة)" aria-label="اسم البطل">
+        <select class="input" data-hero-field="tier" aria-label="فئة النجوم"><option value="">فئة البطل</option>${['3', '4', '5'].map((tier) => `<option value="${tier}" ${entry.tier === tier ? 'selected' : ''}>${tier} نجوم</option>`).join('')}</select>
+        <input class="input" type="number" min="0" max="5" step="1" inputmode="numeric" data-hero-field="normal" value="${escapeHTML(entry.normal ?? '')}" placeholder="الهلال العادي (0–5)" aria-label="عدد الهلال العادي">
+        ${hasRedHilal() ? `<input class="input" type="number" min="0" max="5" step="1" inputmode="numeric" data-hero-field="red" value="${escapeHTML(entry.red ?? '')}" placeholder="الهلال الأحمر (0–5)" aria-label="عدد الهلال الأحمر">` : ''}
+        <button class="small-btn" type="button" data-remove-hero="${index}">حذف البطل</button>
+      </div>
+    `).join('');
+    const isNone = state.none;
+    return `<div class="field-wrap">
+      ${suggestions}${entries}
+      <div class="hero-actions">
+        <button class="small-btn" type="button" data-add-hero ${state.entries.length >= heroRosters[q.category.key].length ? 'disabled' : ''}>إضافة بطل</button>
+        <button class="small-btn" type="button" data-no-heroes>${isNone ? 'تم اختيار: لا يوجد' : 'لا يوجد أبطال من هذه الفئة'}</button>
+      </div>
+      <p class="lead-note">أضف الأبطال المؤهلين للعرض فقط. اسم البطل اختياري ويمكن اختياره من اقتراحات الصورة أو كتابته.</p>
+    </div>`;
+  }
+
+  function renderEquipment(q) {
+    const colors = answers[q.key] || [];
+    return `<div class="equipment-list">${colors.map((color, index) => `
+      <div class="equipment-row">
+        <select class="input" data-equipment-index="${index}"><option value="">اختر لون القطعة</option>${q.options.map((option) => `<option value="${option}" ${color === option ? 'selected' : ''}>${option}</option>`).join('')}</select>
+        <button class="small-btn" type="button" data-remove-equipment="${index}">حذف</button>
+      </div>`).join('')}
+      <button class="small-btn" type="button" data-add-equipment ${colors.length >= 8 ? 'disabled' : ''}>إضافة قطعة (${colors.length}/8)</button>
+    </div>`;
+  }
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[char]);
+  }
+
+  function showLeadFlow() {
+    leadPanel.classList.add('show');
+    leadPanel.querySelector('.lead-title').textContent = 'بيع وشراء القلاع';
+    currentStep = 0;
+    answers = {};
+    renderCurrentStep();
+    leadPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showBotFlow() {
+    leadPanel.classList.add('show');
+    leadPanel.querySelector('.lead-title').textContent = 'أسعار باقات البوتات';
+    renderBotPlans();
+    leadPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showTraderContact(category) {
+    const categoryLabel = category === 'resources' ? 'الموارد' : 'الأحداث';
+    leadPanel.classList.add('show');
+    leadPanel.querySelector('.lead-title').textContent = categoryLabel;
+    leadCard.innerHTML = `
+      <div class="lead-ask">أسعار ${categoryLabel} غير محددة؛ لازم تتواصل مع التاجر لمعرفة السعر والتفاصيل.</div>
+      <a class="bot-contact bot-contact-main" href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`مرحبًا، أريد الاستفسار عن ${categoryLabel} ومعرفة الأسعار والتفاصيل.`)}" target="_blank" rel="noopener noreferrer">تواصل مع التاجر على واتساب</a>
+    `;
+    leadPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderBotPlans() {
+    leadCard.innerHTML = `
+      <div class="lead-ask">أسعار باقات البوتات:</div>
+      <div class="bot-plans">${botPlans.map((plan) => `
+        <div class="bot-plan">
+          <strong>${plan.title}</strong>
+          <span>${plan.priceEgp.toLocaleString('en-US')} جنيه أو ${plan.priceUsd} دولار</span>
+          ${plan.detail ? `<span class="bot-bonus">${plan.detail}</span>` : ''}
+          <a class="bot-contact" href="https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(`مرحبًا، أريد الاستفسار عن باقة ${plan.title} بسعر ${plan.priceEgp} جنيه أو ${plan.priceUsd} دولار.`)}" target="_blank" rel="noopener noreferrer">اسأل عن الباقة على واتساب</a>
+        </div>
+      `).join('')}</div>
+      <a class="bot-contact bot-contact-main" href="https://wa.me/${WHATSAPP_PHONE}" target="_blank" rel="noopener noreferrer">تواصل معنا على واتساب</a>
+    `;
+  }
+
+  function reviewAnswers() {
+    currentStep = 0;
+    renderCurrentStep();
+    leadPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderCurrentStep() {
+    const activeQuestions = getQuestions();
+    const q = activeQuestions[currentStep];
+    if (!q) {
+      const summaryItems = [];
+      let fixedHeroesAdded = false;
+      activeQuestions.forEach((question) => {
+        if (question.type === 'heroes') {
+          const entries = (answers[question.key]?.entries || []).filter((entry) => entry.tier === '5' && (Number(entry.normal) >= 3 || Number(entry.red) > 0));
+          if (entries.length) summaryItems.push(`
+            <div class="summary-item"><strong>${question.category.title}:</strong> ${entries.map((entry) => `${escapeHTML(entry.name || 'بطل')} ${renderMoonRow(Number(entry.normal), Number(entry.red || 0))}`).join(' ، ')}</div>
+          `);
+          return;
+        }
+        if (question.key === 'redHilal') return;
+        if (question.key.endsWith('RedHilalCount')) return;
+        const fixedHero = heroes.find((hero) => hero.normalKey === question.key);
+        if (fixedHero) {
+          if (!fixedHeroesAdded) {
+            heroes.forEach((hero) => {
+              const normalCount = Number(answers[hero.normalKey]);
+              const redCount = hasRedHilal() ? Number(answers[hero.redKey] || 0) : 0;
+              summaryItems.push(`<div class="summary-item"><strong>${hero.name}:</strong> ${renderMoonRow(normalCount, redCount)}</div>`);
+            });
+            fixedHeroesAdded = true;
+          }
+          return;
+        }
+        const answer = question.type === 'multiselect'
+          ? (answers[question.key] || []).join('، ')
+          : question.type === 'equipment'
+            ? (answers[question.key] || []).join('، ')
+            : question.key === 'reset'
+              ? formatAbbreviated(answers[question.key])
+              : formatAnswer(question);
+        summaryItems.push(`
+          <div class="summary-item"><strong>${escapeHTML(question.text)}:</strong> ${escapeHTML(answer)}</div>
+        `);
+      });
+      const summary = summaryItems.join('') + `
+        <div class="summary-item"><strong>رقم العرض:</strong> ${escapeHTML(answers.offerNumber || 'لم يتم تحديد')}</div>
+      `;
+      leadCard.innerHTML = `
+        <div class="lead-ask">خلصت إدخال البيانات — راجعها قبل ما نكمل ✅</div>
+        <div class="summary">${summary}</div>
+        <p class="lead-note" data-send-status>راجع بياناتك قبل الإرسال.</p>
+        <div class="action-row">
+          <button class="back-btn" onclick="reviewAnswers()">مراجعة الإجابات</button>
+          <button class="next-btn" type="button" data-send-lead>إرسال التفاصيل إلى تيليجرام</button>
+        </div>
+        <button class="small-btn" type="button" data-restart-lead>بدء من جديد</button>
+      `;
+      const sendButton = leadCard.querySelector('[data-send-lead]');
+      const sendStatus = leadCard.querySelector('[data-send-status]');
+      sendButton.addEventListener('click', () => sendLeadToTelegram(sendButton, sendStatus));
+      leadCard.querySelector('[data-restart-lead]').addEventListener('click', showLeadFlow);
+      return;
+    }
+
+    const progress = Math.round(((currentStep + 1) / activeQuestions.length) * 100);
+    let content = `
+      <div class="lead-progress">
+        <span>سؤال ${currentStep + 1} من ${activeQuestions.length}</span>
+        <div class="lead-progress-track"><div class="lead-progress-fill" style="width:${progress}%"></div></div>
+      </div>
+      <div class="lead-ask">${escapeHTML(q.text)}</div>
+    `;
+
+    if (q.type === 'heroes') {
+      content += renderHeroQuestion(q);
+    } else if (q.type === 'equipment') {
+      content += renderEquipment(q);
+    } else if (q.type === 'multiselect') {
+      const selected = answers[q.key] || [];
+      content += `<div class="check-list">${q.options.map((option) => `<label class="check-option"><input type="checkbox" data-multi-option="${escapeHTML(option)}" ${selected.includes(option) ? 'checked' : ''}>${escapeHTML(option)}</label>`).join('')}</div>`;
+    } else if (q.type === 'select') {
+      content += `<div class="field-wrap"><select class="input" data-field="${q.key}"><option value="">اختر إجابة</option>${q.options.map((option) => `<option value="${escapeHTML(option)}" ${answers[q.key] === option ? 'selected' : ''}>${escapeHTML(option)}</option>`).join('')}</select></div>`;
+    } else if (q.type === 'input' || q.type === 'textarea' || q.type === 'tel' || q.type === 'number') {
+      const fieldTag = q.type === 'textarea' ? 'textarea' : 'input';
+      const value = escapeHTML(answers[q.key] || '');
+      const inputType = q.type === 'tel' || q.type === 'number' ? q.type : 'text';
+      const numberAttributes = q.type === 'number' ? `min="${q.min ?? 0}" ${q.max !== undefined ? `max="${q.max}"` : ''} step="${q.decimals ? 'any' : '1'}" inputmode="${q.decimals ? 'decimal' : 'numeric'}"` : '';
+      content += `<div class="field-wrap"><${fieldTag} class="${q.type === 'textarea' ? 'textarea' : 'input'}" type="${inputType}" data-field="${q.key}" placeholder="${escapeHTML(q.placeholder)}" ${q.type === 'tel' ? 'dir="ltr"' : ''} ${numberAttributes} ${q.type !== 'textarea' ? `value="${value}"` : ''}>${q.type === 'textarea' ? value : ''}</${fieldTag}></div>`;
+    }
+
+    const isFirst = currentStep === 0;
+    const isLast = currentStep === activeQuestions.length - 1;
+    const note = q.type === 'tel'
+      ? 'اكتب رقم واتسابك مع كود الدولة؛ آخر 5 أرقام منه هتكون رقم العرض تلقائيًا.'
+      : q.key === 'reset'
+        ? 'التصفير لازم يكون أقل من الباور.'
+        : 'الإجابة مطلوبة علشان تقدر تكمل.';
+    content += `<div class="action-row">${isFirst ? '<div></div>' : '<button class="back-btn" onclick="goBack()">رجوع</button>'}<button class="next-btn" onclick="nextStep()">${isLast ? 'مراجعة البيانات' : 'التالي'}</button></div><p class="lead-note">${note}</p>`;
+
+    leadCard.innerHTML = content;
+
+    leadCard.querySelectorAll('[data-multi-option]').forEach((checkbox) => {
+      checkbox.addEventListener('change', () => {
+        const selected = new Set(answers[q.key] || []);
+        if (checkbox.checked) selected.add(checkbox.dataset.multiOption);
+        else selected.delete(checkbox.dataset.multiOption);
+        answers[q.key] = [...selected];
+      });
+    });
+
+    const field = leadCard.querySelector('[data-field]');
+    if (field) {
+      field.focus();
+      field.addEventListener(q.type === 'select' ? 'change' : 'input', (e) => {
+        answers[q.key] = e.target.value;
+      });
+    }
+
+    if (q.type === 'heroes') {
+      const saveHeroEntry = (row) => {
+        const index = Number(row.dataset.heroIndex);
+        const entries = answers[q.key]?.entries || [];
+        const entry = entries[index] || {};
+        row.querySelectorAll('[data-hero-field]').forEach((input) => { entry[input.dataset.heroField] = input.value; });
+        entries[index] = entry;
+        answers[q.key] = { none: false, entries };
+      };
+      leadCard.querySelectorAll('.hero-entry [data-hero-field]').forEach((input) => {
+        input.addEventListener('input', () => saveHeroEntry(input.closest('.hero-entry')));
+        input.addEventListener('change', () => saveHeroEntry(input.closest('.hero-entry')));
+      });
+      leadCard.querySelector('[data-add-hero]').addEventListener('click', () => {
+        const entries = answers[q.key]?.entries || [];
+        if (entries.length < heroRosters[q.category.key].length) entries.push({ name: '', tier: '', normal: '', red: '0' });
+        answers[q.key] = { none: false, entries };
+        renderCurrentStep();
+      });
+      leadCard.querySelectorAll('[data-remove-hero]').forEach((button) => button.addEventListener('click', () => {
+        const entries = answers[q.key]?.entries || [];
+        entries.splice(Number(button.dataset.removeHero), 1);
+        answers[q.key] = { none: false, entries };
+        renderCurrentStep();
+      }));
+      leadCard.querySelector('[data-no-heroes]').addEventListener('click', () => {
+        answers[q.key] = { none: true, entries: [] };
+        renderCurrentStep();
+      });
+    }
+
+    if (q.type === 'equipment') {
+      leadCard.querySelectorAll('[data-equipment-index]').forEach((select) => select.addEventListener('change', () => {
+        const colors = answers[q.key] || [];
+        colors[Number(select.dataset.equipmentIndex)] = select.value;
+        answers[q.key] = colors;
+      }));
+      leadCard.querySelector('[data-add-equipment]').addEventListener('click', () => {
+        const colors = answers[q.key] || [];
+        if (colors.length < 8) colors.push('');
+        answers[q.key] = colors;
+        renderCurrentStep();
+      });
+      leadCard.querySelectorAll('[data-remove-equipment]').forEach((button) => button.addEventListener('click', () => {
+        const colors = answers[q.key] || [];
+        colors.splice(Number(button.dataset.removeEquipment), 1);
+        answers[q.key] = colors;
+        renderCurrentStep();
+      }));
+    }
+  }
+
+  function goBack() {
+    currentStep = Math.max(0, currentStep - 1);
+    renderCurrentStep();
+  }
+
+  function nextStep() {
+    const activeQuestions = getQuestions();
+    const q = activeQuestions[currentStep];
+    if (!q) return;
+
+    const answer = answers[q.key];
+    const hasAnswer = Array.isArray(answer) ? answer.length > 0 : String(answer ?? '').trim().length > 0;
+    if (q.type === 'heroes') {
+      const state = answer || { none: false, entries: [] };
+      if (!state.none && !state.entries.length) {
+        alert('أضف بطلًا واحدًا على الأقل أو اختر «لا يوجد».');
+        return;
+      }
+      for (const entry of state.entries) {
+        if (!entry.tier || entry.normal === '') {
+          alert('أكمل فئة البطل وعدد الهلال العادي.');
+          return;
+        }
+        if (!['3', '4', '5'].includes(entry.tier) || !Number.isInteger(Number(entry.normal)) || Number(entry.normal) < 0 || Number(entry.normal) > 5) {
+          alert('فئة البطل يجب أن تكون 3 أو 4 أو 5 نجوم، والهلال العادي من 0 إلى 5.');
+          return;
+        }
+        const redCount = Number(entry.red || 0);
+        if (hasRedHilal() && (!Number.isInteger(redCount) || redCount < 0 || redCount > Number(entry.normal))) {
+          alert('عدد الهلال الأحمر يجب أن يكون من 0 إلى عدد الهلال العادي.');
+          return;
+        }
+      }
+      if (state.entries.some((entry) => entry.tier !== '5' || (Number(entry.normal) < 3 && Number(entry.red || 0) === 0))) {
+        alert('للعرض، اختر أبطال فئة 5 نجوم ولديهم 3 هلال عادي على الأقل أو هلال أحمر.');
+        return;
+      }
+    }
+
+    if (q.type === 'equipment') {
+      const colors = answer || [];
+      if (!colors.length || colors.length > 8 || colors.some((color) => !q.options.includes(color))) {
+        alert('اختر لون قطعة عتاد واحدة على الأقل، وبحد أقصى 8 قطع.');
+        return;
+      }
+    } else if (!hasAnswer) {
+      alert('الإجابة مطلوبة قبل ما تكمل.');
+      return;
+    }
+
+    if (q.type === 'number') {
+      const numericAnswer = Number(answer);
+      if (!Number.isFinite(numericAnswer) || (!q.decimals && !Number.isInteger(numericAnswer)) || numericAnswer < q.min || (q.max !== undefined && numericAnswer > q.max)) {
+        alert(q.max !== undefined
+          ? `اكتب رقمًا ${q.decimals ? 'صحيحًا' : 'بدون كسور'} من ${q.min} إلى ${q.max}.`
+          : 'اكتب رقمًا صحيحًا أقل من قيمة الباور.');
+        return;
+      }
+    }
+
+    if (q.key === 'links' && !answer.length) {
+      alert('اختر رابطًا واحدًا على الأقل.');
+      return;
+    }
+
+    if (q.key === 'power' || q.key === 'reset') {
+      const power = Number(answers.power);
+      const reset = Number(answer);
+      if (q.key === 'reset' && reset >= power) {
+        alert('التصفير لازم يكون أقل من الباور.');
+        return;
+      }
+    }
+
+    if (q.redFor) {
+      const normalCount = Number(answers[q.redFor.normalKey]);
+      if (!Number.isInteger(Number(answer)) || Number(answer) < 0 || Number(answer) > normalCount) {
+        alert(`عدد الهلال الأحمر لازم يكون من 0 إلى ${normalCount}.`);
+        return;
+      }
+    }
+
+    const redQuestionIndex = activeQuestions.findIndex((question) => question.key === 'malikRedHilalCount');
+    if (hasRedHilal() && currentStep === redQuestionIndex) {
+      if (!heroes.some((hero) => Number(answers[hero.redKey]) > 0)) {
+        alert('أدخل هلالًا أحمر واحدًا على الأقل عند أحد الأبطال.');
+        return;
+      }
+    }
+
+    if (q.type === 'tel') {
+      const phone = String(answer).replace(/[\s().-]/g, '');
+      const internationalPhone = phone.startsWith('00') ? `+${phone.slice(2)}` : phone;
+      if (!/^\+[1-9]\d{7,14}$/.test(internationalPhone)) {
+        alert('اكتب رقم واتساب صحيحًا مع كود الدولة، مثل +201012345678.');
+        return;
+      }
+      answers[q.key] = internationalPhone;
+      answers.offerNumber = internationalPhone.replace(/\D/g, '').slice(-5);
+    }
+
+    if (currentStep < activeQuestions.length - 1) {
+      currentStep += 1;
+      renderCurrentStep();
+      return;
+    }
+
+    currentStep = activeQuestions.length;
+    renderCurrentStep();
+  }
+
+  const tg = window.Telegram && window.Telegram.WebApp;
+  const inTelegram = tg && tg.initData;
+  if (inTelegram) { tg.ready(); tg.expand(); }
+
+  function openBot(start){
+    const url = `https://t.me/${BOT_USERNAME}` + (start ? `?start=${start}` : "");
+    if (inTelegram) tg.openTelegramLink(url);
+    else window.open(url, "_blank");
+  }
+
+  document.querySelectorAll(".card").forEach((c) => {
+    c.addEventListener("click", () => {
+      if (c.dataset.start === 'resources' || c.dataset.start === 'events') {
+        showTraderContact(c.dataset.start);
+        return;
+      }
+      if (c.dataset.start === 'castles') {
+        showLeadFlow();
+        return;
+      }
+      if (c.dataset.start === 'bots') {
+        showBotFlow();
+        return;
+      }
+      openBot(c.dataset.start);
+    });
+  });
+  document.getElementById("tgMain").addEventListener("click", e => { e.preventDefault(); openBot(""); });
+
+</script>
+</body>
+</html>
